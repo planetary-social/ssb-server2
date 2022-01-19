@@ -4,6 +4,8 @@ const path = require('path')
 var Server = require('../')
 const DB_PATH = process.env.DB_PATH || (__dirname + '/db')
 
+// Server.use(require('my-plugin'))
+
 const server = Server({
     path: DB_PATH,
     friends: {
