@@ -38,3 +38,17 @@ fs.writeFileSync(
     path.join(config.path, 'manifest.json'), // ~/.ssb/manifest.json
     JSON.stringify(manifest)
 ```
+
+## CLI
+```bash
+npm i -g ssb-server2
+```
+
+```bash
+ssb-server2 start
+```
+
+Pass in any config needed: 
+```bash
+node bin.js start --path="./test/db"
+```
