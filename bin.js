@@ -3,7 +3,9 @@
 var Config = require('ssb-config/inject')
 var Server = require('./')
 var fs = require('fs')
+var path = require('path')
 var ProgressBar  = require('./progress')
+var minimist = require('minimist')
 
 //get config as cli options after --, options before that are
 //options to the command.

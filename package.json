@@ -14,9 +14,11 @@
     "test": "tape test/*.js | tap-spec"
   },
   "dependencies": {
+    "minimist": "^1.2.5",
     "secret-stack": "^6.4.0",
     "ssb-blobs": "^2.0.1",
     "ssb-caps": "^1.1.0",
+    "ssb-config": "^3.4.6",
     "ssb-conn": "^6.0.1",
     "ssb-db2": "^2.8.6",
     "ssb-ebt": "^8.1.0",
