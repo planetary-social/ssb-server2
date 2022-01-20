@@ -2,7 +2,6 @@ const test = require('tape')
 const ssbKeys = require('ssb-keys')
 const path = require('path')
 const Server = require('../')
-// const { fork } = require('child_process');
 const DB_PATH = __dirname + '/db'
 
 // add additional plugins

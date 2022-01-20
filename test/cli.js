@@ -22,6 +22,10 @@ test('server can be called on CLI', t => {
         if (!child.killed) child.kill()
     })
 
+    child.stdout.on('data', d => {
+        console.log('stdout:: ', d.toString())
+    })
+
     child.stdout.once('data', () => {
         t.pass('child is ok')
         t.end()
