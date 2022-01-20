@@ -1,32 +1,10 @@
 const test = require('tape')
 const { spawn } = require('child_process')
 const path = require('path')
-// const DB_PATH = __dirname + '/db'
+const DB_PATH = __dirname + '/db'
 
-// test('server can be called on CLI', t => {
-//     const child = fork(path.join(__dirname, '..', 'bin.js'), ['start', '--',
-//         `path="${DB_PATH}"`], { stdio: 'inherit' });
-//     t.ok(child, 'should create child process')
-//     child.on('spawn', () => {
-//         console.log('spawned')
-//         t.pass('should create a new process')
-//         // t.end()
-//     })
-
-//     child.stderr.once('error', err => t.fail(err))
-// })
-
-// test('all done', t => {
-//     child.once('exit', () => {
-//         console.log('exit')
-//         t.end()
-//     })
-//     var dead = child.kill()
-//     t.ok(dead, 'should stop process')
-// })
-
-var args = [path.join(__dirname, '../bin.js'), 'start', '--',
-    '--path=./test/db' ]
+const args = [path.join(__dirname, '../bin.js'), 'start', '--',
+    '--path=' +  DB_PATH]
 
 var child
 

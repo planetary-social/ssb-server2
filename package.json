@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": {
     "sbot": "./bin.js",
-    "ssb-server": "./bin.js"
+    "ssb-server2": "./bin.js"
   },
   "directories": {
     "test": "test"

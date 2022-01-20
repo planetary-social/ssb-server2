@@ -40,15 +40,17 @@ fs.writeFileSync(
 ```
 
 ## CLI
+Install globally:
 ```bash
 npm i -g ssb-server2
 ```
 
+Start via CLI:
 ```bash
 ssb-server2 start
 ```
 
 Pass in any config needed: 
 ```bash
-node bin.js start --path="./test/db"
+ssb-server2 start --path="./test/db"
 ```
