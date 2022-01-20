@@ -52,5 +52,5 @@ ssb-server2 start
 
 Pass in any config needed: 
 ```bash
-ssb-server2 start --path="./test/db"
+ssb-server2 start -- --path="./test/db"
 ```
