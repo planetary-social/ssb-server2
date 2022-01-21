@@ -17,14 +17,9 @@ var i = argv.indexOf('--')
 var conf = argv.slice(i + 1)
 argv = ~i ? argv.slice(0, i) : argv
 
-var config = Config(
-    process.env.ssb_appname,
-    minimist(conf)
-    // Object.assign(minimist(conf), {
-
-    // })
-)
+var config = Config(process.env.ssb_appname, minimist(conf))
 var manifestFile = path.join(config.path, 'manifest.json')
+console.log('aaaa', config.keys)
 
 console.log('**argv**', argv)
 
@@ -52,10 +47,10 @@ if (argv[0] == 'start') {
     // normal command
     // create a client connection to the server
 
-    const config = Config(
-        process.env.ssb_appname,
-        minimist(conf)
-    )
+    // const config = Config(
+    //     process.env.ssb_appname,
+    //     minimist(conf)
+    // )
 
     console.log('elseeeeeeeeeee')
 
