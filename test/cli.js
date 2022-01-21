@@ -3,12 +3,12 @@ const { spawn } = require('child_process')
 const path = require('path')
 const DB_PATH = __dirname + '/db'
 
-const args = [path.join(__dirname, '../bin.js'), 'start', '--',
-    '--path=' +  DB_PATH]
-
 var child
 
-test('server can be called on CLI', t => {
+test('server can be started on CLI', t => {
+    const args = [path.join(__dirname, '../bin.js'), 'start', '--',
+        '--path=' +  DB_PATH]
+
     child = spawn(
         process.execPath,  // ~/.nvm/versions/node/v16.8.0/bin/node
         args,
@@ -22,6 +22,10 @@ test('server can be called on CLI', t => {
         if (!child.killed) child.kill()
     })
 
+    child.stdout.on('error', err => {
+        console.log('aaaaa errrrrr', err)
+    })
+
     child.stdout.on('data', d => {
         console.log('stdout:: ', d.toString())
     })
@@ -31,11 +35,32 @@ test('server can be called on CLI', t => {
         t.end()
     });
 
-    child.stderr.once('error', err => {
-        console.log('errrrrrr', err)
+    child.stderr.once('data', err => {
+        console.log('oooo errrrrrr', err.toString())
         t.fail(err)
     })
 })
+
+// test('CLI has server methods', t => {
+//     const args2 = [path.join(__dirname, '../bin.js'), 'publish', '--type',
+//         'post', '--text', 'My First Post!', '--', '--path=' +  DB_PATH]
+
+//     child = spawn(
+//         process.execPath,  // ~/.nvm/versions/node/v16.8.0/bin/node
+//         args2,
+//         {
+//             stdio: 'pipe',
+//             env: { ssb_appname: 'test' }
+//         }
+//     )
+
+//     child.stdout.on('data', d => {
+//         console.log('stdout --  ', d.toString())
+//     })
+//     child.stderr.on('data', err => {
+//         console.log('**errrrrr**', err.toString())
+//     })
+// })
 
 test('all done', t => {
     child.once('exit', () => {

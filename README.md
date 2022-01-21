@@ -8,6 +8,12 @@ An implementation of [ssb-server](https://github.com/ssbc/ssb-server), using [db
 npm i -S ssb-server2
 ```
 
+## test
+
+```
+npm test
+```
+
 ## use
 
 ```js

@@ -21,9 +21,16 @@ test('server can exist', t => {
     t.end()
 })
 
+test('has server methods', t => {
+    // console.log('**server**', server)
+    t.ok(server.db.query, 'should have db methods')
+    t.end()
+})
+
 test('all done', t => {
     server.close(err => {
         t.error(err, 'should not have error')
+        console.log('closed', err)
         t.end()
     })
 })
