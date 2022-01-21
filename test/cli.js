@@ -41,33 +41,33 @@ test('server can be started on CLI', t => {
     })
 })
 
-test('CLI has server methods', t => {
-    const args2 = [path.join(__dirname, '../bin.js'), 'publish', '--type',
-        'post', '--text', 'My First Post!', '--', '--path=' +  DB_PATH]
+// test('CLI has server methods', t => {
+//     const args2 = [path.join(__dirname, '../bin.js'), 'publish', '--type',
+//         'post', '--text', 'My First Post!', '--', '--path=' +  DB_PATH]
 
-    const _child = spawn(
-        process.execPath,  // ~/.nvm/versions/node/v16.8.0/bin/node
-        args2,
-        {
-            stdio: 'pipe',
-            env: { ssb_appname: 'test2' }
-        }
-    )
+//     const _child = spawn(
+//         process.execPath,  // ~/.nvm/versions/node/v16.8.0/bin/node
+//         args2,
+//         {
+//             stdio: 'pipe',
+//             env: { ssb_appname: 'test2' }
+//         }
+//     )
 
-    t.ok(_child)
-    _child.stdout.once('data', d => {
-        console.log('data', d.toString())
-    })
+//     t.ok(_child)
+//     _child.stdout.once('data', d => {
+//         console.log('data', d.toString())
+//     })
 
-    _child.once('exit', () => t.end())
+//     _child.once('exit', () => t.end())
 
-    // child.stdout.on('data', d => {
-    //     console.log('stdout --  ', d.toString())
-    // })
-    // child.stderr.on('data', err => {
-    //     console.log('**errrrrr**', err.toString())
-    // })
-})
+//     // child.stdout.on('data', d => {
+//     //     console.log('stdout --  ', d.toString())
+//     // })
+//     // child.stderr.on('data', err => {
+//     //     console.log('**errrrrr**', err.toString())
+//     // })
+// })
 
 test('all done', t => {
     child.once('exit', () => {
