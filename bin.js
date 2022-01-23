@@ -25,10 +25,10 @@ var _conf = Object.assign({}, minimist(conf), {
 
 // require('ssb-config/inject')(appName, opts) => Object
 var config = Config('test-app', _conf)
-
+var manifestFile = path.join(config.path, 'manifest.json')
 
 console.log('**argv**', argv)
-console.log('config', config)
+// console.log('config', config)
 
 if (argv[0] == 'start') {
     console.log('***start****')
@@ -46,12 +46,12 @@ if (argv[0] == 'start') {
     // console.log('server', server)
 
     // console.log('config', config.path)
-    // console.log('manifest', manifestFile)
+    console.log('**manifest**', manifestFile)
     // console.log('argv', argv)
 
     // write RPC manifest to DB_PATH/manifest.json
-    // fs.writeFileSync(manifestFile,
-    //     JSON.stringify(server.getManifest(), null, 2))
+    fs.writeFileSync(manifestFile,
+        JSON.stringify(server.getManifest(), null, 2))
 } else {
     // normal command
     // create a client connection to the server
@@ -83,7 +83,7 @@ if (argv[0] == 'start') {
     console.log('**config.keys**', config.keys)
 
 
-
+    // rpc connect
     Client(config.keys, opts, (err, rpc) => {
         if(err) {
             if (/could not connect/.test(err.message)) {
@@ -105,6 +105,6 @@ if (argv[0] == 'start') {
         // run commandline flow
         // console.log('**manifest**', manifest)
         console.log('**argv**', argv)
-        muxrpcli(argv, manifest, rpc, config.verbose)
+        muxrpcli(argv, manifest, rpc)
     })
 }

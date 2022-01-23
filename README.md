@@ -64,5 +64,5 @@ ssb-server2 start -- --path="./test/db"
 --------------------------------------------------------------
 
 ```
-NODE_ENV=test node ./bin.js db.publish --type post --text "My First Post" -- --path=./test/db
+NODE_ENV=test node ./bin.js db.publish --type post --text "My First Post" -- --path=./test-data
 ```
