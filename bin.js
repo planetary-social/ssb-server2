@@ -25,10 +25,10 @@ var _conf = Object.assign({}, minimist(conf), {
 
 // require('ssb-config/inject')(appName, opts) => Object
 var config = Config('test-app', _conf)
-var manifestFile = path.join(config.path, 'manifest.json')
+var manifestPath = path.join(config.path, 'manifest.json')
 
-console.log('**argv**', argv)
-// console.log('config', config)
+console.log('••argv••', argv)
+console.log('config', config)
 
 if (argv[0] == 'start') {
     console.log('***start****')
@@ -41,16 +41,17 @@ if (argv[0] == 'start') {
 
     // server.on('error', console.log.bind(null, 'errr'))
 
-    console.log('listening... ', server.getAddress())
+    console.log('listening on', config.port)
+    console.log('address... ', server.getAddress())
 
     // console.log('server', server)
 
     // console.log('config', config.path)
-    console.log('**manifest**', manifestFile)
+    console.log('**manifest path**', manifestPath)
     // console.log('argv', argv)
 
     // write RPC manifest to DB_PATH/manifest.json
-    fs.writeFileSync(manifestFile,
+    fs.writeFileSync(manifestPath,
         JSON.stringify(server.getManifest(), null, 2))
 } else {
     // normal command
@@ -66,7 +67,7 @@ if (argv[0] == 'start') {
     // read manifest.json
     var manifest
     try {
-        manifest = JSON.parse(fs.readFileSync(manifestFile))
+        manifest = JSON.parse(fs.readFileSync(manifestPath))
     } catch (err) {
         throw explain(err, 'no manifest file' +
             ' - should be generated first time server is run')
@@ -80,11 +81,24 @@ if (argv[0] == 'start') {
         key: config.key || config.keys.id
     }
 
-    console.log('**config.keys**', config.keys)
+    // console.log('**config.keys**', config.keys)
+
+
+
+    // try redoing this client part with a muxrpcli call
+    // first get a muxrpc connection (what client does)
+    // then  call muxrpcli
+
+
+
+
+
 
 
     // rpc connect
     Client(config.keys, opts, (err, rpc) => {
+        console.log('**rpc**', rpc.db)
+
         if(err) {
             if (/could not connect/.test(err.message)) {
                 console.error('Error: Could not connect to ssb-server ' +
@@ -96,6 +110,7 @@ if (argv[0] == 'start') {
             }
             throw err
         }
+
 
         rpc.config = function (cb) {
             console.log(JSON.stringify(config, null, 2))
