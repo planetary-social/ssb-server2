@@ -8,8 +8,8 @@ var path = require('path')
 var minimist = require('minimist')
 var Client = require('ssb-client')
 var muxrpcli = require('muxrpcli')
-var packageJson  = require('./package.json')
-var muxrpc = require('muxrpc')
+// var packageJson  = require('./package.json')
+// var muxrpc = require('muxrpc')
 
 // get config as cli options after --, options before that are
 // options to the command.
@@ -18,27 +18,40 @@ var i = argv.indexOf('--')
 var conf = argv.slice(i + 1)
 argv = ~i ? argv.slice(0, i) : argv
 
-var config = Config(process.env.ssb_appname, minimist(conf))
-var manifestFile = path.join(config.path, 'manifest.json')
-// console.log('aaaa', config.keys)
+var _conf = Object.assign({}, minimist(conf), {
+    port: 8888,
+    path: path.join(__dirname, 'test-data')
+})
+
+// require('ssb-config/inject')(appName, opts) => Object
+var config = Config('test-app', _conf)
+
 
 console.log('**argv**', argv)
+console.log('config', config)
 
 if (argv[0] == 'start') {
-    console.log(packageJson.name, packageJson.version, config.path,
-        'logging.level:'+config.logging.level)
-    console.log('my key ID:', config.keys.public)
+    console.log('***start****')
+    // console.log(packageJson.name, packageJson.version, config.path,
+    //     'logging.level:'+config.logging.level)
+    // console.log('my key ID:', config.keys.public)
 
     var server = Server(config)
+    // var server = Server({ path: path.join(__dirname, 'test-data') })
+
+    // server.on('error', console.log.bind(null, 'errr'))
+
+    console.log('listening... ', server.getAddress())
+
     // console.log('server', server)
 
-    console.log('config', config.path)
-    console.log('manifest', manifestFile)
+    // console.log('config', config.path)
+    // console.log('manifest', manifestFile)
     // console.log('argv', argv)
 
     // write RPC manifest to DB_PATH/manifest.json
-    fs.writeFileSync(manifestFile,
-        JSON.stringify(server.getManifest(), null, 2))
+    // fs.writeFileSync(manifestFile,
+    //     JSON.stringify(server.getManifest(), null, 2))
 } else {
     // normal command
     // create a client connection to the server
