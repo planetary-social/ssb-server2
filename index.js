@@ -9,7 +9,7 @@ if (process.env.NODE_ENV == 'test') {
 // call create.
 function createSsbServer () {
     return SecretStack({ caps })
-      .use(require('ssb-db2'))
+      .use(require('ssb-db2/db'))
 }
 module.exports = createSsbServer()
 

@@ -9,6 +9,7 @@ var minimist = require('minimist')
 var Client = require('ssb-client')
 var muxrpcli = require('muxrpcli')
 var packageJson  = require('./package.json')
+var muxrpc = require('muxrpc')
 
 // get config as cli options after --, options before that are
 // options to the command.
@@ -19,7 +20,7 @@ argv = ~i ? argv.slice(0, i) : argv
 
 var config = Config(process.env.ssb_appname, minimist(conf))
 var manifestFile = path.join(config.path, 'manifest.json')
-console.log('aaaa', config.keys)
+// console.log('aaaa', config.keys)
 
 console.log('**argv**', argv)
 
@@ -29,20 +30,15 @@ if (argv[0] == 'start') {
     console.log('my key ID:', config.keys.public)
 
     var server = Server(config)
-    var manifestFile = path.join(config.path, 'manifest.json')
+    // console.log('server', server)
 
     console.log('config', config.path)
     console.log('manifest', manifestFile)
-    console.log('argv', argv)
+    // console.log('argv', argv)
 
     // write RPC manifest to DB_PATH/manifest.json
     fs.writeFileSync(manifestFile,
         JSON.stringify(server.getManifest(), null, 2))
-
-    // this is part of `ssb-db`
-    // if (process.stdout.isTTY && (config.logging.level !== 'info')) {
-    //     ProgressBar(server.progress)
-    // }
 } else {
     // normal command
     // create a client connection to the server
@@ -73,6 +69,8 @@ if (argv[0] == 'start') {
 
     console.log('**config.keys**', config.keys)
 
+
+
     Client(config.keys, opts, (err, rpc) => {
         if(err) {
             if (/could not connect/.test(err.message)) {
@@ -84,6 +82,11 @@ if (argv[0] == 'start') {
                 process.exit(1)
             }
             throw err
+        }
+
+        rpc.config = function (cb) {
+            console.log(JSON.stringify(config, null, 2))
+            cb()
         }
 
         // run commandline flow
